@@ -103,7 +103,7 @@ if (!function_exists('show_attachment_image')) :
                 'title' => get_the_title($id))
             );
         } else {
-            if ($image_name = 'thumbnail' && get_post_type($id) == 'EM_POST_TYPE_EVENT') {
+            if ($image_name = 'thumbnail' && get_post_type($id) == EM_POST_TYPE_EVENT) {
                 echo '<img src="' . TEMPLATE_URL . '/images/thumb-default.png" alt="' . get_the_title($id) . '" title="' . get_the_title($id) . '">';
             }
         }
@@ -182,8 +182,7 @@ add_filter('the_content', 'remove_img_from_content');
 
 function remove_img_from_content($content) {
     global $post;
-    if (!is_singular('EM_POST_TYPE_EVENT') && !is_singular('DEAL_TYPE')) {
-
+    if (!is_singular(defined('EM_POST_TYPE_EVENT') ? EM_POST_TYPE_EVENT : 'event') && !is_singular('DEAL_TYPE')) {
         return $content;
     }
     // $content = preg_replace('#(<[/]?img.*>)#U', '', $content); //removing all images
@@ -246,14 +245,14 @@ function the_share_button($id, $title, $excerpt = '') {
         <div id="single-social" class="shareicons">
             <ul>
                 <li class="text">Share:</li>
-    <?php if (is_tax() || $post_type == 'EM_POST_TYPE_EVENT' || (is_single() && $post_type == 'post')) : ?>
+    <?php if (is_tax() || $post_type == EM_POST_TYPE_EVENT || (is_single() && $post_type == 'post')) : ?>
                     <li class="email"><a href="mailto:?subject=Vivid Sydney: <?php echo $title; ?>&body=<?php echo $body; ?>">Email</a></li>
     <?php endif; ?>
                 <li class="facebook">
                     <a rel="external" href="http://www.facebook.com/share.php?u=<?php echo get_permalink($id); ?>" onclick="javascript:_gaq.push(['_trackSocial', 'Facebook', 'Visit']);" >Facebook</a></li>
                 <li class="twitter"><a rel="external" href="http://twitter.com/share?text=<?php echo $title ?>&url=<?php echo get_permalink($id); ?>" onclick="javascript:_gaq.push(['_trackSocial', 'Twitter', 'Visit']);" >Twitter</a></li>
                 <li class="googleplus"><a rel="external" href="https://plus.google.com/share?url=<?php echo get_permalink($id); ?>" onclick="javascript:_gaq.push(['_trackSocial', 'Google+', 'Visit']);" >Google+</a></li>
-    <?php if (is_singular('EM_POST_TYPE_EVENT') || (is_single() && $post_type == 'post')) : ?>
+    <?php if (is_singular(EM_POST_TYPE_EVENT) || (is_single() && $post_type == 'post')) : ?>
                     <li class="print"><a href="#" onClick="window.print();
                             return false">Print</a></li>
     <?php endif; ?>
@@ -540,8 +539,8 @@ class WP_HTML_Compression {
         }
     }
 
-    public function __toString() {
-        return $this->html;
+    public function __toString() : string {
+        return (string) ($this->html ?? '');
     }
 
     protected function bottomComment($raw, $compressed) {
