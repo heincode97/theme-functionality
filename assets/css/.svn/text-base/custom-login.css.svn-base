@@ -1,0 +1,33 @@
+body.login{ 
+	background:#f1f1f1;
+	border-top: 12px solid #7c7c7c;
+	color:#5c5c5c;
+	font:13px normal Arial, Helvetica, sans-serif;		
+}
+#login{ margin-top:-12px;width: 485px; padding-top:20px;position:relative; z-index:101}
+
+#login #nav a.ce {
+	float:right;
+	text-indent: -9990em;
+	background: url(../images/logo-dd.png) left top no-repeat;
+	width: 50px;
+	height: 50px;
+}
+
+.login h1{
+	background: url(../images/logo.png) no-repeat;
+	width: 383px;
+    height: 122px;
+	margin: 0 auto;
+	text-indent: -9999px;
+	overflow: hidden;
+	display: block;
+}
+.login h1 a{	background-image:none !important;height: 115px;width: 100%;	}
+.login #nav, .login #backtoblog {
+    text-shadow: 0 1px 0 #ccc;
+}
+.login #nav a, .login #backtoblog a { color: #000 !important; }
+.login #nav a:hover, .login #backtoblog a:hover{ color:#000 !important; text-decoration:none }
+
+
